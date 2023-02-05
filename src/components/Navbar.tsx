@@ -11,6 +11,7 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({ user = undefined }) => {
 			{[
 				{ to: '/', name: 'Home' },
 				{ to: '/profile', name: 'Profile' },
+				{ to: '/spaces', name: 'Spaces' },
 				{ to: '/login', name: 'Login' },
 				{ to: '/logout', name: 'Logout' },
 			]

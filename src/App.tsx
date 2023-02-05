@@ -6,11 +6,14 @@ import { Route, Routes } from 'react-router';
 import Home from './components/Home';
 import Profile from './components/Profile';
 import { User } from './model/Model';
+import Spaces from './components/spaces/Spaces';
+import { DataService } from './services/DataService';
 
 const App: React.FunctionComponent = () => {
 	const [user, setUser] = useState<User | undefined>(undefined);
 
 	const authService: AuthService = new AuthService();
+	const dataService: DataService = new DataService();
 
 	return (
 		<div className='m-auto w-9/12'>
@@ -34,6 +37,10 @@ const App: React.FunctionComponent = () => {
 						element={
 							<Profile authService={authService} user={user} />
 						}
+					/>
+					<Route
+						path='/spaces'
+						element={<Spaces dataService={dataService} />}
 					/>
 				</Routes>
 			</div>
