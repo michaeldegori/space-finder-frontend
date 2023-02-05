@@ -1,49 +1,44 @@
-import React from 'react';
-import { User } from './model/Model';
+import { useState } from 'react';
 import { AuthService } from './services/AuthService';
-import { Login } from './components/Login';
-import { Navbar } from './components/Navbar';
+import Login from './components/Login';
+import Navbar from './components/Navbar';
 import { Route, Routes } from 'react-router';
-import { Home } from './components/Home';
-import { Profile } from './components/Profile';
+import Home from './components/Home';
+import Profile from './components/Profile';
+import { User } from './model/Model';
 
-interface AppState {
-	user: User | undefined;
-}
+const App: React.FunctionComponent = () => {
+	const [user, setUser] = useState<User | undefined>(undefined);
 
-export class App extends React.Component<{}, AppState> {
-	private authService: AuthService = new AuthService();
+	const authService: AuthService = new AuthService();
 
-	constructor(props: any) {
-		super(props);
-		this.state = { user: undefined };
-		this.setUser = this.setUser.bind(this);
-	}
-
-	private setUser(user: User) {
-		this.setState({ user: user });
-	}
-
-	render() {
-		return (
-			<div className='m-auto w-9/12'>
-				<div>
-					<Navbar user={this.state.user} />
-					<Routes>
-						<Route path='/' element={<Home />} />
-						<Route
-							path='/login'
-							element={
-								<Login
-									authService={this.authService}
-									setUser={this.setUser}
-								/>
-							}
-						/>
-						<Route path='/profile' element={<Profile />} />
-					</Routes>
-				</div>
+	return (
+		<div className='m-auto w-9/12'>
+			<div>
+				<Navbar user={user} />
+				<Routes>
+					<Route path='/' element={<Home />} />
+					<Route
+						path='/login'
+						element={
+							<Login
+								authService={authService}
+								setUser={userData => {
+									setUser(userData);
+								}}
+							/>
+						}
+					/>
+					<Route
+						path='/profile'
+						element={
+							<Profile authService={authService} user={user} />
+						}
+					/>
+				</Routes>
 			</div>
-		);
-	}
-}
+		</div>
+	);
+};
+
+export default App;

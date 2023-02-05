@@ -1,82 +1,68 @@
-import React, { SyntheticEvent } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import { User } from '../model/Model';
 import { AuthService } from '../services/AuthService';
+import { useNavigate } from 'react-router-dom';
 
 interface LoginProps {
 	authService: AuthService;
 	setUser: (user: User) => void;
 }
 
-interface LoginState {
-	userName: string;
-	password: string;
-	loginAttempted: boolean;
-	loginSuccessful: boolean;
-}
+const Login: React.FunctionComponent<LoginProps> = ({
+	authService,
+	setUser,
+}) => {
+	const navigate = useNavigate();
 
-interface CustomEvent {
-	target: HTMLInputElement;
-}
+	const [userName, setUserName] = useState('');
+	const [password, setPassword] = useState('');
+	const [loginAttempted, setLoginAttempted] = useState(false);
+	const [loginSuccessful, setLoginSuccessful] = useState(false);
 
-export class Login extends React.Component<LoginProps, LoginState> {
-	state: LoginState = {
-		userName: '',
-		password: '',
-		loginAttempted: false,
-		loginSuccessful: false,
-	};
-
-	private setUserName(event: CustomEvent) {
-		this.setState({ userName: event.target.value });
-	}
-	private setPassword(event: CustomEvent) {
-		this.setState({ password: event.target.value });
-	}
-	private async handleSubmit(event: SyntheticEvent) {
+	const handleSubmit = async (event: SyntheticEvent) => {
 		event.preventDefault();
-		this.setState({ loginAttempted: true });
-		const result = await this.props.authService.login(
-			this.state.userName,
-			this.state.password
-		);
+		setLoginAttempted(true);
+		const result = await authService.login(userName, password);
 
 		if (result) {
-			this.setState({ loginSuccessful: true });
-			this.props.setUser(result);
+			setLoginSuccessful(true);
+			setUser(result);
+			console.log({ result });
+			navigate('/profile');
 		} else {
 			console.log('Wrong login');
 		}
-	}
+	};
 
-	render() {
-		let loginMessage: any;
-		if (this.state.loginAttempted) {
-			if (this.state.loginSuccessful) {
-				loginMessage = <label>Login successful</label>;
-			} else {
-				loginMessage = <label>Login failed</label>;
-			}
+	let loginMessage: any;
+	if (loginAttempted) {
+		if (loginSuccessful) {
+			loginMessage = <label>Login successful</label>;
+		} else {
+			loginMessage = <label>Login failed</label>;
 		}
-
-		return (
-			<div>
-				<h2>Please login</h2>
-				<form onSubmit={event => this.handleSubmit(event)}>
-					<input
-						value={this.state.userName}
-						onChange={event => this.setUserName(event)}
-					/>
-					<br />
-					<input
-						value={this.state.password}
-						onChange={event => this.setPassword(event)}
-						type='password'
-					/>
-					<br />
-					<input type='submit' />
-				</form>
-				{loginMessage}
-			</div>
-		);
 	}
-}
+
+	return (
+		<div>
+			<h2>Please login</h2>
+			<form onSubmit={event => handleSubmit(event)}>
+				<input
+					value={userName}
+					onChange={event => setUserName(event.target.value)}
+				/>
+				<br />
+				<input
+					value={password}
+					onChange={event => setPassword(event.target.value)}
+					type='password'
+				/>
+				<br />
+				<input type='submit' />
+			</form>
+			{loginMessage}
+		</div>
+	);
+};
+
+export default Login;
