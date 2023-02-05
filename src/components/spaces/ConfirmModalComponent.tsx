@@ -1,12 +1,14 @@
 interface ConfirmModalComponentProps {
 	isVisible: boolean;
-	content: string;
+	content?: string;
 	close: () => void;
 }
 
-const ConfirmModalComponent: React.FunctionComponent<
-	ConfirmModalComponentProps
-> = ({ isVisible, content, close }) => {
+const ConfirmModalComponent = ({
+	isVisible,
+	content,
+	close,
+}: ConfirmModalComponentProps) => {
 	if (!isVisible) {
 		return null;
 	}

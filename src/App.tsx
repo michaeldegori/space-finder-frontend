@@ -9,7 +9,7 @@ import { User } from './model/Model';
 import Spaces from './components/spaces/Spaces';
 import { DataService } from './services/DataService';
 
-const App: React.FunctionComponent = () => {
+const App = () => {
 	const [user, setUser] = useState<User | undefined>(undefined);
 
 	const authService: AuthService = new AuthService();

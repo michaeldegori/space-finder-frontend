@@ -7,10 +7,7 @@ interface ProfileProps {
 	user: User | undefined;
 	authService: AuthService;
 }
-const Profile: React.FunctionComponent<ProfileProps> = ({
-	user,
-	authService,
-}) => {
+const Profile = ({ user, authService }: ProfileProps) => {
 	const [userAttributes, setUserAttributes] = useState<UserAttribute[]>([]);
 
 	useEffect(() => {

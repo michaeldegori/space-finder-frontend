@@ -8,10 +8,7 @@ interface LoginProps {
 	setUser: (user: User) => void;
 }
 
-const Login: React.FunctionComponent<LoginProps> = ({
-	authService,
-	setUser,
-}) => {
+const Login = ({ authService, setUser }: LoginProps) => {
 	const navigate = useNavigate();
 
 	const [userName, setUserName] = useState('');

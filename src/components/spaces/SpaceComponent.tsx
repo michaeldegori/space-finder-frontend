@@ -1,6 +1,6 @@
 import genericSpace from '../../assets/airbnb.jpg';
 
-interface SpaceProps {
+interface SpaceComponentProps {
 	spaceId: string;
 	name: string;
 	location: string;
@@ -8,13 +8,13 @@ interface SpaceProps {
 	reserveSpace: (spaceId: string) => void;
 }
 
-const SpaceComponent: React.FunctionComponent<SpaceProps> = ({
+const SpaceComponent = ({
 	spaceId = '',
 	name = '',
 	location = '',
 	imageUrl = '',
 	reserveSpace = () => {},
-}) => {
+}: SpaceComponentProps) => {
 	const renderImage = () => {
 		if (imageUrl) {
 			return (

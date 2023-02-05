@@ -5,7 +5,7 @@ interface NavbarProps {
 	user: User | undefined;
 }
 
-const Navbar: React.FunctionComponent<NavbarProps> = ({ user = undefined }) => {
+const Navbar = ({ user = undefined }: NavbarProps) => {
 	return (
 		<div className='truncate bg-gray-800'>
 			{[

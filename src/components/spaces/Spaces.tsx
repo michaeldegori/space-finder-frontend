@@ -7,7 +7,7 @@ import ConfirmModalComponent from './ConfirmModalComponent';
 interface SpaceProps {
 	dataService: DataService;
 }
-const Spaces: React.FunctionComponent<SpaceProps> = ({ dataService }) => {
+const Spaces = ({ dataService }: SpaceProps) => {
 	const [spaces, setSpaces] = useState<Space[]>([]);
 	const [modalVisible, setModalVisible] = useState(false);
 	const [modalContent, setModalContent] = useState('');
