@@ -41,7 +41,7 @@ const Login = ({ authService, setUser }: LoginProps) => {
 	}
 
 	return (
-		<div>
+		<div data-testid='login'>
 			<h2>Please login</h2>
 			<form onSubmit={event => handleSubmit(event)}>
 				<input

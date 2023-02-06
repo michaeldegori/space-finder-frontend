@@ -38,6 +38,7 @@ const Spaces = ({ dataService }: SpaceProps) => {
 		spaces.forEach(space => {
 			rows.push(
 				<SpaceComponent
+					key={space.spaceId}
 					location={space.location}
 					name={space.name}
 					spaceId={space.spaceId}
