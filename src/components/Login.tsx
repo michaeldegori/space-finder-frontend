@@ -45,11 +45,13 @@ const Login = ({ authService, setUser }: LoginProps) => {
 			<h2>Please login</h2>
 			<form onSubmit={event => handleSubmit(event)}>
 				<input
+					placeholder='Username'
 					value={userName}
 					onChange={event => setUserName(event.target.value)}
 				/>
 				<br />
 				<input
+					placeholder='Password'
 					value={password}
 					onChange={event => setPassword(event.target.value)}
 					type='password'
